@@ -3,18 +3,18 @@ services:
   - docker
 
 before_install:
-  - docker build -t noneuser2183/webcomplexawsCtest -f ./client/Dockerfile.dev .
+  - docker build -t noneuser2183/webcomplexawsctest -f ./client/Dockerfile.dev .
 
 script:
-  - docker run noneuser2183/webcomplexawsCtest npm test -- --coverage
+  - docker run noneuser2183/webcomplexawsctest npm test -- --coverage
 
 after_success:
-  - docker build -t noneuser2183/webcomplexawsC ./client
-  - docker build -t noneuser2183/webcomplexawsN ./nginx
-  - docker build -t noneuser2183/webcomplexawsS ./server
-  - docker build -t noneuser2183/webcomplexawsW ./worker
+  - docker build -t noneuser2183/webcomplexawsc ./client
+  - docker build -t noneuser2183/webcomplexawsn ./nginx
+  - docker build -t noneuser2183/webcomplexawss ./server
+  - docker build -t noneuser2183/webcomplexawsw ./worker
   - echo "$docpass" | docker login -u "$docid" --password-stdin
-  - docker push noneuser2183/webcomplexawsC 
-  - docker push noneuser2183/webcomplexawsN
-  - docker push noneuser2183/webcomplexawsS
-  - docker push noneuser2183/webcomplexawsW
+  - docker push noneuser2183/webcomplexawsc 
+  - docker push noneuser2183/webcomplexawsn
+  - docker push noneuser2183/webcomplexawss
+  - docker push noneuser2183/webcomplexawsw
