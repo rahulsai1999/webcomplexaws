@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t noneuser2183/webcomplexawsCtest -f ./client/Dockerfile.dev .
+
+script:
+  - docker run noneuser2183/webcomplexawsCtest npm test -- --coverage
+
+after_success:
+  - docker build -t noneuser2183/webcomplexawsC ./client
+  - docker build -t noneuser2183/webcomplexawsN ./nginx
+  - docker build -t noneuser2183/webcomplexawsS ./server
+  - docker build -t noneuser2183/webcomplexawsW ./worker
+  - echo "$docpass" | docker login -u "$docid" --password-stdin
+  - docker push noneuser2183/webcomplexawsC 
+  - docker push noneuser2183/webcomplexawsN
+  - docker push noneuser2183/webcomplexawsS
+  - docker push noneuser2183/webcomplexawsW
