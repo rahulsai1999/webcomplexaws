@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions":[
+        {
+            "name":"client",
+            "image":"noneuser2183/webcomplexawsc",
+            "hostname":"client",
+            "essential":false
+        },
+        {
+            "name":"server",
+            "image":"noneuser2183/webcomplexawss",
+            "hostname":"api",
+            "essential":false
+        },
+        {
+            "name":"worker",
+            "image":"noneuser2183/webcomplexawsw",
+            "hostname":"worker",
+            "essential":false
+        },
+        {
+            "name":"nginx",
+            "image":"noneuser2183/webcomplexawsn",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings":[
+                {
+                    "hostPort":80,
+                    "containerPort":80
+                }
+            ],
+            "links":["client","server"]
+        }   
+    ]
+}
